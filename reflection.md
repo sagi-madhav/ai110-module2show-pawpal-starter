@@ -28,13 +28,13 @@
 
 **a. Constraints and priorities**
 
-- What constraints does your scheduler consider (for example: time, priority, preferences)?
-- How did you decide which constraints mattered most?
+- The scheduler considers total available time (in minutes), priority levels (high, medium, low), scheduled time slots ("HH:MM"), and task durations.
+- High priority matters most because essential pet health and care tasks (like medication and core feeding) cannot be skipped. Within the same priority tier, shorter tasks are scheduled first to maximize the number of completed activities within the owner's available time.
 
 **b. Tradeoffs**
 
-- Describe one tradeoff your scheduler makes.
-- Why is that tradeoff reasonable for this scenario?
+- Tradeoff: The conflict detection algorithm checks for exact start-time matches (such as two tasks starting at 08:00) rather than calculating full overlapping duration intervals. Furthermore, when conflicts occur, the scheduler generates a warning message instead of crashing or automatically canceling a task.
+- Why it is reasonable: Checking exact start times keeps the algorithm lightweight, performant, and simple to understand without requiring complex datetime interval math. Raising a visible warning rather than failing or dropping tasks gives owners flexibility, since an owner can often multitask (like feeding both pets together) or ask a family member for assistance.
 
 ---
 

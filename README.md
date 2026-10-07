@@ -60,19 +60,22 @@ Paste a sample of your app's CLI or Streamlit output here so a reader can see wh
 Available Time Budget: 60 minutes
 Total Scheduled Time: 60 minutes
 
+Warnings & Detected Conflicts:
+  [!] Time conflict at 08:00: 'Morning Walk' (Milo), 'Breakfast & Meds' (Luna) are scheduled at the same time.
+
 Scheduled Tasks:
-  1. Give Medication (Luna) - 10 mins [High priority]
-  2. Morning Walk (Milo) - 30 mins [High priority]
-  3. Interactive Playtime (Luna) - 20 mins [Medium priority]
+  1. Breakfast & Meds (Luna) at 08:00 - 15 mins [High priority]
+  2. Morning Walk (Milo) at 08:00 - 25 mins [High priority]
+  3. Evening Walk (Milo) at 18:30 - 20 mins [Medium priority]
 
 Skipped Tasks (Exceeded Time Budget):
-  1. Brush Fur (Milo) - 15 mins [Low priority]
+  1. Playtime (Luna) at 13:00 - 15 mins [Low priority]
 
 Why This Plan Was Chosen:
-  - Scheduled 'Give Medication' for Luna (10 min, high priority) - fits within time budget (10/60 min used).
-  - Scheduled 'Morning Walk' for Milo (30 min, high priority) - fits within time budget (40/60 min used).
-  - Scheduled 'Interactive Playtime' for Luna (20 min, medium priority) - fits within time budget (60/60 min used).
-  - Skipped 'Brush Fur' for Milo (15 min, low priority) - needs 15 min, but only 0 min remain.
+  - Scheduled 'Breakfast & Meds' for Luna at 08:00 (15 min, high priority) - fits within time budget (15/60 min used).
+  - Scheduled 'Morning Walk' for Milo at 08:00 (25 min, high priority) - fits within time budget (40/60 min used).
+  - Scheduled 'Evening Walk' for Milo at 18:30 (20 min, medium priority) - fits within time budget (60/60 min used).
+  - Skipped 'Playtime' for Luna at 13:00 (15 min, low priority) - needs 15 min, but only 0 min remain.
 ```
 
 ## 🧪 Testing PawPal+
@@ -92,23 +95,27 @@ Sample test output:
 platform win32 -- Python 3.12.4, pytest-9.1.1, pluggy-1.6.0
 rootdir: D:\Code\CodePath\ai110-module2show-pawpal-starter
 plugins: anyio-4.15.1
-collected 2 items
+collected 6 items
 
-tests\test_pawpal.py ..                                                  [100%]
+tests\test_pawpal.py ......                                              [100%]
 
-============================== 2 passed in 0.01s ==============================
+============================== 6 passed in 0.02s ==============================
 ```
 
 ## 📐 Smarter Scheduling
 
-> Fill in once you've implemented scheduling logic.
-
 | Feature | Method(s) | Notes |
 |---------|-----------|-------|
-| Task sorting | | e.g., by priority, duration |
-| Filtering | | e.g., skip tasks if time runs out |
-| Conflict handling | | e.g., overlapping time slots |
-| Recurring tasks | | e.g., daily vs. weekly |
+| Task sorting | `Scheduler.sort_by_time()` & `Scheduler.generate_plan()` | Chronological sorting by "HH:MM" string, plus priority and duration weighting |
+| Filtering | `Scheduler.filter_tasks()` | Filters tasks by completion status (`is_completed`) and/or `pet_name` |
+| Conflict handling | `Scheduler.detect_conflicts()` | Identifies shared time slots across pets and outputs non-fatal warnings |
+| Recurring tasks | `Task.mark_complete()` & `Pet.mark_task_complete()` | Calculates next due date with `timedelta` for daily (+1 day) and weekly (+7 days) tasks |
+
+### Features Overview
+- **Sorting Behavior (`Scheduler.sort_by_time`)**: Arranges tasks chronologically by their "HH:MM" start time using Python's `sorted()` function with a lambda key. During plan generation, tasks are prioritized by urgency and duration.
+- **Filtering Behavior (`Scheduler.filter_tasks`)**: Enables owners to filter tasks by completion state (`is_completed`) or specific pet name (`pet_name`), making it easy to focus on what still needs to be done.
+- **Conflict Detection Logic (`Scheduler.detect_conflicts`)**: Scans scheduled times across all pets and flags instances where multiple tasks share the same time slot, outputting friendly warning alerts.
+- **Recurring Task Logic (`Task.mark_complete` / `Pet.mark_task_complete`)**: Automatically schedules the next occurrence for daily (+1 day) or weekly (+7 days) tasks using Python's `timedelta`.
 
 ## 📸 Demo Walkthrough
 
