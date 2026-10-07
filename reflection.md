@@ -4,13 +4,23 @@
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+- Core user actions:
+  1. Add and manage pet profiles by providing details like the pet's name and species.
+  2. Create and customize care tasks, setting an estimated duration in minutes and a priority level (high, medium, or low).
+  3. Generate a daily plan that fits within the owner's time constraints, showing a clear schedule and the reasoning behind each choice.
+
+- Initial design and classes:
+  - `Owner`: Holds owner details, available time for the day, and manages their list of pets.
+  - `Pet`: Holds the pet's name and species, and keeps track of all tasks assigned to that pet.
+  - `CareTask`: Represents a single activity (such as a walk or feeding) with its duration, priority level, and completion status.
+  - `DailyScheduler`: Collects pending tasks, organizes them by priority to fit within available time, and records explanations for which tasks are scheduled or deferred.
 
 **b. Design changes**
 
 - Did your design change during implementation?
-- If yes, describe at least one change and why you made it.
+  Yes, while reviewing the initial class skeleton, we made a couple of adjustments to prevent confusion and bottlenecks:
+  1. We added an optional `pet_name` attribute to `CareTask`. Originally, only `Pet` held the task list. But when `DailyScheduler` collects tasks from multiple pets into a single daily plan, having each task know which pet it belongs to makes the final schedule much clearer to the user.
+  2. We noted that priority strings ('high', 'medium', 'low') should map to clear ranking values rather than relying on alphabetical order, ensuring top-priority items are always scheduled first.
 
 ---
 

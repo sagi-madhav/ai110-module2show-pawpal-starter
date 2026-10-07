@@ -1,0 +1,38 @@
+classDiagram
+    class Owner {
+        +str name
+        +int available_time_minutes
+        +list pets
+        +add_pet(pet)
+        +get_total_tasks() list
+    }
+
+    class Pet {
+        +str name
+        +str species
+        +list tasks
+        +add_task(task)
+        +get_pending_tasks() list
+    }
+
+    class CareTask {
+        +str title
+        +int duration_minutes
+        +str priority
+        +bool is_completed
+        +mark_complete()
+        +is_high_priority() bool
+    }
+
+    class DailyScheduler {
+        +int time_limit_minutes
+        +list scheduled_tasks
+        +list skipped_tasks
+        +list reasoning
+        +generate_plan(tasks, time_limit) list
+        +get_summary() str
+    }
+
+    Owner "1" *-- "many" Pet : owns
+    Pet "1" *-- "many" CareTask : has
+    DailyScheduler ..> CareTask : schedules
