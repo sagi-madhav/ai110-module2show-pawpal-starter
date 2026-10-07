@@ -42,16 +42,37 @@ pip install -r requirements.txt
 6. Connect your logic to the Streamlit UI in `app.py`.
 7. Refine UML so it matches what you actually built.
 
+## 🛠️ Implementation Summary
+
+PawPal+ is organized into four core classes that collaborate to manage pet tasks and build daily schedules:
+
+- **`Task`**: Represents an individual activity (title, duration in minutes, priority, frequency, and completion status). When added to a pet, it stores the pet's name for clarity.
+- **`Pet`**: Represents an individual pet (name, species) and maintains a collection of assigned tasks.
+- **`Owner`**: Represents the user, their daily time budget, and their pets. Its `get_all_tasks()` method aggregates pending tasks across all pets.
+- **`Scheduler`**: The planning engine. It retrieves all tasks from the owner, ranks them by priority and duration, fits them into the owner's time constraint, and produces a transparent daily schedule with reasoning for each decision.
+
 ## 🖥️ Sample Output
 
 Paste a sample of your app's CLI or Streamlit output here so a reader can see what a generated plan looks like:
 
-```
-# e.g.:
-# Daily plan for Biscuit (Golden Retriever):
-#   08:00 — Morning walk (30 min) [priority: high]
-#   09:00 — Feeding (10 min) [priority: high]
-#   ...
+```text
+=== Today's Pet Care Schedule ===
+Available Time Budget: 60 minutes
+Total Scheduled Time: 60 minutes
+
+Scheduled Tasks:
+  1. Give Medication (Luna) - 10 mins [High priority]
+  2. Morning Walk (Milo) - 30 mins [High priority]
+  3. Interactive Playtime (Luna) - 20 mins [Medium priority]
+
+Skipped Tasks (Exceeded Time Budget):
+  1. Brush Fur (Milo) - 15 mins [Low priority]
+
+Why This Plan Was Chosen:
+  - Scheduled 'Give Medication' for Luna (10 min, high priority) - fits within time budget (10/60 min used).
+  - Scheduled 'Morning Walk' for Milo (30 min, high priority) - fits within time budget (40/60 min used).
+  - Scheduled 'Interactive Playtime' for Luna (20 min, medium priority) - fits within time budget (60/60 min used).
+  - Skipped 'Brush Fur' for Milo (15 min, low priority) - needs 15 min, but only 0 min remain.
 ```
 
 ## 🧪 Testing PawPal+
@@ -66,8 +87,16 @@ pytest --cov
 
 Sample test output:
 
-```
-# Paste your pytest output here
+```text
+============================= test session starts =============================
+platform win32 -- Python 3.12.4, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\Code\CodePath\ai110-module2show-pawpal-starter
+plugins: anyio-4.15.1
+collected 2 items
+
+tests\test_pawpal.py ..                                                  [100%]
+
+============================== 2 passed in 0.01s ==============================
 ```
 
 ## 📐 Smarter Scheduling

@@ -42,13 +42,13 @@
 
 **a. How you used AI**
 
-- How did you use AI tools during this project (for example: design brainstorming, debugging, refactoring)?
-- What kinds of prompts or questions were most helpful?
+- I used AI tools to brainstorm the initial class structure from the project requirements, convert our UML ideas into clean Python dataclasses, and set up boilerplate tests.
+- Prompts that were specific and architectural were most helpful—for example, asking how the Scheduler should communicate with the Owner to gather tasks across multiple pets, and asking for a clean, human-readable terminal output format.
 
 **b. Judgment and verification**
 
-- Describe one moment where you did not accept an AI suggestion as-is.
-- How did you evaluate or verify what the AI suggested?
+- During the skeleton phase, the initial design had tasks isolated inside pets without tracking which pet they belonged to once aggregated, and priority sorting was just using string values. I did not accept that as-is; instead, I ensured tasks retain their associated pet's name when added to a pet, and implemented explicit numeric priority rankings (high = 3, medium = 2, low = 1) so high-priority tasks always come first.
+- I verified this by running `python main.py` with multi-pet scenarios to inspect the printed plan, and by executing automated unit tests with `pytest` to confirm task completion and pet task tracking work as expected.
 
 ---
 
