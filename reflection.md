@@ -42,13 +42,15 @@
 
 **a. How you used AI**
 
-- I used AI tools to brainstorm the initial class structure from the project requirements, convert our UML ideas into clean Python dataclasses, and set up boilerplate tests.
-- Prompts that were specific and architectural were most helpful—for example, asking how the Scheduler should communicate with the Owner to gather tasks across multiple pets, and asking for a clean, human-readable terminal output format.
+- Most effective AI features: Using the assistant to rapidly convert UML concepts into clean Python dataclasses, implement algorithmic methods (like sorting and filtering), and draft comprehensive unit test suites.
+- Helpful prompts: Prompts focused on system structure—such as asking how the Scheduler should retrieve tasks across multiple pets through the Owner, and asking for a clean, human-readable terminal schedule format.
+- Phased organization: Separating the project into distinct phases (UML architecture, backend implementation, smarter algorithms, automated testing, and UI integration) kept the work modular and ensured each component was fully verified before moving forward.
 
 **b. Judgment and verification**
 
-- During the skeleton phase, the initial design had tasks isolated inside pets without tracking which pet they belonged to once aggregated, and priority sorting was just using string values. I did not accept that as-is; instead, I ensured tasks retain their associated pet's name when added to a pet, and implemented explicit numeric priority rankings (high = 3, medium = 2, low = 1) so high-priority tasks always come first.
-- I verified this by running `python main.py` with multi-pet scenarios to inspect the printed plan, and by executing automated unit tests with `pytest` to confirm task completion and pet task tracking work as expected.
+- Modified / rejected suggestions: During conflict detection, an overly complex interval math algorithm was considered. I chose a simpler, lightweight check on start times that issues non-blocking warnings instead of crashing. Additionally, I modified the initial task skeleton to explicitly store the pet's name on each task so schedules remain clear when multiple pets are involved.
+- Verification: I verified all logic through hands-on testing in `main.py` and a suite of 11 passing `pytest` unit tests.
+- Being the lead architect: Collaborating with AI highlighted that the developer must define the design boundaries and requirements. While AI excels at generating syntax and boilerplate quickly, the human architect must guide the system decisions and verify correctness.
 
 ---
 
@@ -80,12 +82,12 @@
 
 **a. What went well**
 
-- What part of this project are you most satisfied with?
+- I am most satisfied with how cleanly the multi-pet aggregation works. Having the `Owner` manage multiple `Pet` objects and pass them seamlessly into the `Scheduler` created a system that feels natural and scalable. The automated test suite gave immediate confidence that every feature worked as expected.
 
 **b. What you would improve**
 
-- If you had another iteration, what would you improve or redesign?
+- In a future iteration, I would add full time-slot interval arithmetic (detecting when an 8:00 AM 45-minute task overlaps with an 8:30 AM task), add task editing and deletion in the Streamlit UI, and support a multi-day weekly calendar view.
 
 **c. Key takeaway**
 
-- What is one important thing you learned about designing systems or working with AI on this project?
+- Designing the system architecture first—mapping out classes, attributes, and responsibilities—makes implementation and AI collaboration dramatically smoother. When you know exactly what each class should do, writing, testing, and debugging become straightforward.

@@ -129,12 +129,72 @@ The test suite validates every core requirement, edge case, and boundary conditi
 
 ## 📸 Demo Walkthrough
 
-Describe your app in numbered steps so a reader can follow along without watching a video:
+Follow these steps to explore all features of PawPal+ either via the interactive Streamlit UI or the command-line demo script:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+### Main Features & Actions
+- **Owner & Time Settings**: Customize the owner's name and set a daily pet care time budget (e.g., 60 minutes).
+- **Pet Registration**: Add multiple pets with distinct names and species (e.g., dogs, cats, birds).
+- **Task Management**: Create care tasks with specific durations, priorities (high/medium/low), frequencies (daily/weekly/once), and optional scheduled times ("HH:MM").
+- **Live Filtering & Sorting**: Filter tasks by a specific pet and view tasks sorted chronologically by time.
+- **Smart Schedule Generation**: Click **Generate Schedule** to let the scheduler prioritize urgent tasks, pack them into the available time budget, flag any time conflicts, and provide clear explanations.
 
-**Screenshot or video** *(optional)*: <!-- Insert a screenshot or link to a demo video here -->
+### Example Workflow
+1. **Launch the App**: Run `streamlit run app.py` and set your daily available time budget to 60 minutes.
+2. **Register Your Pets**: Add `Milo` (dog) and `Luna` (cat) in the Owner & Pet Settings section.
+3. **Add Tasks**:
+   - Add *Morning Walk* for Milo (25 min, High priority, 08:00, daily).
+   - Add *Breakfast & Meds* for Luna (15 min, High priority, 08:00, daily).
+   - Add *Evening Walk* for Milo (20 min, Medium priority, 18:30, daily).
+   - Add *Playtime* for Luna (15 min, Low priority, 13:00, once).
+4. **Inspect Tasks**: Toggle the "Filter by Pet" dropdown or check "Sort Chronologically" to see the organized task overview.
+5. **Generate the Schedule**: Click **Generate Schedule**.
+   - The scheduler flags a time conflict alert because both Milo's walk and Luna's meds are set for 08:00.
+   - The scheduler schedules the 3 highest-priority tasks (totaling 60 minutes).
+   - Low-priority *Playtime* is deferred because the 60-minute time budget was fully utilized.
+   - An explanation block details each decision.
+
+### Sample CLI Demo Output (`python main.py`)
+
+```text
+========================================
+        PawPal+ Demo Walkthrough        
+========================================
+
+--- 1. Chronological Sorting (sort_by_time) ---
+  [08:00] Morning Walk (Milo) - 25 min
+  [08:00] Breakfast & Meds (Luna) - 15 min
+  [13:00] Playtime (Luna) - 15 min
+  [18:30] Evening Walk (Milo) - 20 min
+
+--- 2. Filtering Tasks (Luna's tasks only) ---
+  Breakfast & Meds for Luna [Completed: False]
+  Playtime for Luna [Completed: False]
+
+--- 3. Recurring Task Automation ---
+Completing task: 'Evening Walk' on 2026-10-07...
+  Old task is_completed: True
+  Next occurrence created: 'Evening Walk' due on 2026-10-08
+  Milo's current pending tasks: ['Morning Walk', 'Evening Walk']
+
+--- 4. Today's Generated Schedule & Conflict Warning ---
+=== Today's Pet Care Schedule ===
+Available Time Budget: 60 minutes
+Total Scheduled Time: 60 minutes
+
+Warnings & Detected Conflicts:
+  [!] Time conflict at 08:00: 'Morning Walk' (Milo), 'Breakfast & Meds' (Luna) are scheduled at the same time.
+
+Scheduled Tasks:
+  1. Breakfast & Meds (Luna) at 08:00 - 15 mins [High priority]
+  2. Morning Walk (Milo) at 08:00 - 25 mins [High priority]
+  3. Evening Walk (Milo) at 18:30 - 20 mins [Medium priority]
+
+Skipped Tasks (Exceeded Time Budget):
+  1. Playtime (Luna) at 13:00 - 15 mins [Low priority]
+
+Why This Plan Was Chosen:
+  - Scheduled 'Breakfast & Meds' for Luna at 08:00 (15 min, high priority) - fits within time budget (15/60 min used).
+  - Scheduled 'Morning Walk' for Milo at 08:00 (25 min, high priority) - fits within time budget (40/60 min used).
+  - Scheduled 'Evening Walk' for Milo at 18:30 (20 min, medium priority) - fits within time budget (60/60 min used).
+  - Skipped 'Playtime' for Luna at 13:00 (15 min, low priority) - needs 15 min, but only 0 min remain.
+```
