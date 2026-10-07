@@ -56,13 +56,23 @@
 
 **a. What you tested**
 
-- What behaviors did you test?
-- Why were these tests important?
+- Behaviors tested:
+  1. Task completion state changes (`mark_complete`).
+  2. Associating tasks with pets and verifying task count increases.
+  3. Gathering all tasks across multiple pets via the owner.
+  4. Chronological sorting by time strings, including tasks without a time.
+  5. Filtering tasks by pet name and completion status.
+  6. Recurring task scheduling for daily (+1 day) and weekly (+7 days) intervals using `timedelta`.
+  7. Conflict detection when two tasks share the same time slot, and ensuring no false warnings occur for unique times.
+  8. Time budget limits and handling empty task lists without crashing.
+- Why these tests were important:
+  They ensure that the scheduling engine behaves predictably, never crashes on unexpected or empty inputs, and reliably prioritizes pet well-being within the owner's daily constraints.
 
 **b. Confidence**
 
-- How confident are you that your scheduler works correctly?
-- What edge cases would you test next if you had more time?
+- Confidence level: Very high (5/5 stars). All 11 automated unit tests run and pass cleanly in a fraction of a second, covering both happy paths and edge cases.
+- Edge cases to test next:
+  Given more time, I would test tasks that cross midnight, invalid time formats (like non-digit strings), negative task durations, and multi-day lookaheads.
 
 ---
 

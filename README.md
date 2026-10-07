@@ -80,27 +80,37 @@ Why This Plan Was Chosen:
 
 ## 🧪 Testing PawPal+
 
-```bash
-# Run the full test suite:
-pytest
+Run the automated test suite from the project root using:
 
-# Run with coverage:
-pytest --cov
+```bash
+python -m pytest
 ```
 
-Sample test output:
+### What the Tests Cover
+Our test suite includes 11 automated test cases verifying both standard workflows and edge cases:
+- **Task Management**: Validates `mark_complete()` state changes, pet-to-task association, and multi-pet aggregation under an owner.
+- **Sorting Correctness**: Checks that `sort_by_time()` returns tasks in chronological order while handling tasks without a set time.
+- **Filtering Logic**: Confirms filtering by pet name, completion status, and combined criteria.
+- **Recurrence Logic**: Verifies that completing daily (+1 day) and weekly (+7 days) tasks automatically enqueues the next occurrence with the correct `due_date`.
+- **Conflict Detection**: Checks that overlapping start times across pets produce clear warning messages, while unique times produce none.
+- **Edge Cases & Budget Limits**: Ensures the scheduler handles empty task lists without crashing and correctly skips tasks that exceed available time limits.
+
+### Sample Test Output
 
 ```text
 ============================= test session starts =============================
 platform win32 -- Python 3.12.4, pytest-9.1.1, pluggy-1.6.0
 rootdir: D:\Code\CodePath\ai110-module2show-pawpal-starter
 plugins: anyio-4.15.1
-collected 6 items
+collected 11 items
 
-tests\test_pawpal.py ......                                              [100%]
+tests\test_pawpal.py ...........                                         [100%]
 
-============================== 6 passed in 0.02s ==============================
+============================= 11 passed in 0.02s ==============================
 ```
+
+**Confidence Level:** ⭐⭐⭐⭐⭐ (5/5 stars)
+The test suite validates every core requirement, edge case, and boundary condition with fast and reliable test execution.
 
 ## 📐 Smarter Scheduling
 
