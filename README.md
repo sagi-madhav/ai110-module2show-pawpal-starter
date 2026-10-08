@@ -156,27 +156,16 @@ Follow these steps to explore all features of PawPal+ either via the interactive
 ### Sample CLI Demo Output (`python main.py`)
 
 ```text
-========================================
-        PawPal+ Demo Walkthrough        
-========================================
+Tasks Sorted Chronologically:
+[08:00] Morning Walk (Milo) - 25 min
+[08:00] Breakfast & Meds (Luna) - 15 min
+[13:00] Playtime (Luna) - 15 min
+[18:30] Evening Walk (Milo) - 20 min
 
---- 1. Chronological Sorting (sort_by_time) ---
-  [08:00] Morning Walk (Milo) - 25 min
-  [08:00] Breakfast & Meds (Luna) - 15 min
-  [13:00] Playtime (Luna) - 15 min
-  [18:30] Evening Walk (Milo) - 20 min
+Filtered Tasks for Luna:
+Breakfast & Meds (Luna)
+Playtime (Luna)
 
---- 2. Filtering Tasks (Luna's tasks only) ---
-  Breakfast & Meds for Luna [Completed: False]
-  Playtime for Luna [Completed: False]
-
---- 3. Recurring Task Automation ---
-Completing task: 'Evening Walk' on 2026-10-07...
-  Old task is_completed: True
-  Next occurrence created: 'Evening Walk' due on 2026-10-08
-  Milo's current pending tasks: ['Morning Walk', 'Evening Walk']
-
---- 4. Today's Generated Schedule & Conflict Warning ---
 === Today's Pet Care Schedule ===
 Available Time Budget: 60 minutes
 Total Scheduled Time: 60 minutes
